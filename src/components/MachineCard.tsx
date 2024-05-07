@@ -35,8 +35,29 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
       
     exist &&
       <div key={key} className="p-4 rounded-sm border border-slate-600 mt-2">
+        <div>
+          <div className="flex flex-row ">
+            StepType: 
+            <input onChange={handleChange} name="RecipeName" className="block mb-4 ml-4  bg-slate-600 w-full" />
+          </div>
+          <div className="flex flex-row ">
+            StepId:
+            <div className="flex gap-4 w-full">
+              <input onChange={handleChange} name="RecipeName" className="block mb-4 ml-4  bg-slate-600 w-full" />
+                or
+              <div className="flex gap-1 items-center mb-[13px]">
+                  <input type="checkbox" id="StepIdDone" name="StepIdDone" />
+                  <label htmlFor="StepIdDone">Done</label>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-row ">
+            ExecuteFunction: 
+            <input onChange={handleChange} name="RecipeName" className="block mb-4 ml-4  bg-slate-600 w-full" />
+          </div>
+        </div>
         <div className="flex justify-between">
-          <select className="p-4 bg-slate-600 text-white" onChange={handleChange}>
+          <select className="p-4 bg-slate-600 w-1/2" onChange={handleChange}>
             <option key={999} value={[]}>Machine Data State</option>
             {
               Object.keys(machineDataObj).map((i, key) => 
@@ -44,31 +65,70 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
               )
             }
           </select>
-          <button className="p-4 bg-red-600 text-white" onClick={() => handleExist()}>Delete</button>
-        </div>
-        {machineindex &&
-
-        <div className="pt-4" id="">
-          <div className="p-4  text-white">
+          {machineindex &&
+            <select className="p-4 ml-4 bg-slate-600 w-1/2" name="cars" id="cars">
             {
               Object.keys(Object.values(machineDataState[machineindex])[0]).map((i, key) => (
-                <div key={key} className="flex justify-start">
-                  <div className="my-4 w-[200px]">{i}: </div>
-                    {
-                      Object.keys(Object.values(Object.values(machineDataState[machineindex])[0][i])[0]).map((j, k) => (
-                        <div className="flex flex-col" key={k}>
-                          <div className="my-2 text-xs">{j}: </div>
-                          <input className="block p-2 rounded-sm bg-slate-400 text-white border-none max-w-[150px] mr-1" placeholder={j} />
-                        </div>
-                      ))
-                    }
-                </div>
+                      <option className="block p-2 rounded-sm  border-none max-w-[150px] mr-1" key={key} value={i}>
+                        {i}
+                      </option>
               ))
-            }
-          </div>
-
+            }                  
+            </select>
+          }
         </div>
-        }
+        <div className="pt-4">
+          Transitions:
+          <div className="flex flex-col pl-4">
+            <div className="flex flex-col w-full border-l-4 border-slate-600 pl-2 mt-2">
+              <div className="flex gap-1 items-center">
+                <p>hrFunction:</p>
+                <input type="radio" id="Succeeded1" name="hrFunction1" value="Succeeded" />
+                <label htmlFor="Succeeded1">Succeeded</label>
+                <input type="radio" id="failed1" name="hrFunction1" value="Failed" />
+                <label htmlFor="failed1">Failed</label>
+              </div>
+              <div className="flex">
+                NextStepId:
+                <input onChange={handleChange} name="RecipeName" className="block ml-4  bg-slate-600 w-full" />
+              </div>
+              
+            </div>
+            <div className="flex flex-col w-full border-l-4 border-slate-600 pl-2 mt-2">
+              <div className="flex gap-1 items-center">
+                <p>hrFunction:</p>
+                <input type="radio" id="empty" name="hrFunction2" value="Succeeded" />
+                <label htmlFor="empty">Succeeded</label>
+                <input type="radio" id="Succeeded2" name="hrFunction2" value="Succeeded" />
+                <label htmlFor="Succeeded2">Succeeded</label>
+                <input type="radio" id="failed2" name="hrFunction2" value="Failed" />
+                <label htmlFor="failed2">Failed</label>
+              </div>
+              <div className="flex">
+                NextStepId:
+                <input onChange={handleChange} name="RecipeName" className="block ml-4  bg-slate-600 w-full" />
+              </div>
+              
+            </div>
+          </div>
+          
+          {/*
+            "Transitions": [
+                {
+                    "hrFunction": "Succeeded",
+                    "NextStepId": "move_to_bsc"
+                },
+                {
+                    "hrFunction": "Failed",
+                    "NextStepId": "Done"
+                }
+            ],
+            "Parameter": {}
+          */}
+        </div>
+        <div className="flex justify-end mt-4">
+          <button className="p-4 bg-red-600 " onClick={handleExist}>Delete</button>
+        </div>                    
       </div>
       
   );
