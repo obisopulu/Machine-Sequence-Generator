@@ -9,7 +9,7 @@ export default async function Home() {
   };
 
   return (
-    <div className='bg-slate-600 flex justify-center'>
+    <div className='bg-slate-600 flex justify-center text-white h-[100vh] overflow-auto'>
         <SequenceEditor data={data} />
     </div>
   );
