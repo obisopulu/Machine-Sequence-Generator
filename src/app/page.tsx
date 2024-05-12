@@ -1,15 +1,13 @@
 import SequenceEditor from "@/components/SequenceEditor";
-import { fetchData } from "@/hooks/FileReader";
+import { transferData } from "@/hooks/FileTransfer";
 
 export default async function Home() {
-  const data = await fetchData({ folder: 'Task', fileName: 'MachineCapabilities_Assessment.json' });
+  const data = await transferData({ folder: 'Task', fileName: 'MachineCapabilities_Assessment.json' });
   
-  const handleChange = (event: any) => {
-
-  };
+  transferData({ data: data})
 
   return (
-    <div className='bg-slate-600 flex justify-center text-white h-[100vh] overflow-auto'>
+    <div className='flex justify-center text-white py-12'>
         <SequenceEditor data={data} />
     </div>
   );
