@@ -27,8 +27,12 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
     }
   };
   
-  const handleChange = (event: { target: { value: SetStateAction<number | null | undefined>; }; }) => {
+  const handleAddStep = (event: { target: { value: SetStateAction<number | null | undefined>; }; }) => {
     setMachineindex(event.target.value)
+  };
+  
+  const handleChange = () => {
+    console.log("change")
   };
   
   return (
@@ -51,14 +55,14 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
               </div>
             </div>
           </div>
-          <div className="flex flex-row ">
+          {/**<div className="flex flex-row ">
             ExecuteFunction: 
             <input onChange={handleChange} name="RecipeName" className="block mb-4 ml-4  bg-slate-600 w-full" />
-          </div>
+          </div>*/}
         </div>
         <div className="flex justify-between">
-          <select className="p-4 bg-slate-600 w-1/2" onChange={handleChange}>
-            <option key={999} value={[]}>Machine Data State</option>
+          <select className="p-4 bg-slate-600 w-1/2" onChange={handleAddStep}>
+            <option key={999} value={[]}>Machine-Module</option>
             {
               Object.keys(machineDataObj).map((i, key) => 
                 <option key={key} value={key}>{i}</option>
@@ -83,10 +87,8 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
             <div className="flex flex-col w-full border-l-4 border-slate-600 pl-2 mt-2">
               <div className="flex gap-1 items-center">
                 <p>hrFunction:</p>
-                <input type="radio" id="Succeeded1" name="hrFunction1" value="Succeeded" />
+                <input type="checkbox" id="Succeeded1" value="Succeeded" />
                 <label htmlFor="Succeeded1">Succeeded</label>
-                <input type="radio" id="failed1" name="hrFunction1" value="Failed" />
-                <label htmlFor="failed1">Failed</label>
               </div>
               <div className="flex">
                 NextStepId:
@@ -97,12 +99,8 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
             <div className="flex flex-col w-full border-l-4 border-slate-600 pl-2 mt-2">
               <div className="flex gap-1 items-center">
                 <p>hrFunction:</p>
-                <input type="radio" id="empty" name="hrFunction2" value="Succeeded" />
-                <label htmlFor="empty">Succeeded</label>
-                <input type="radio" id="Succeeded2" name="hrFunction2" value="Succeeded" />
-                <label htmlFor="Succeeded2">Succeeded</label>
-                <input type="radio" id="failed2" name="hrFunction2" value="Failed" />
-                <label htmlFor="failed2">Failed</label>
+                <input type="checkbox" id="Succeeded1" value="Succeeded" />
+                <label htmlFor="Succeeded1">Succeeded</label>
               </div>
               <div className="flex">
                 NextStepId:
