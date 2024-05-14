@@ -1,14 +1,12 @@
-import { transferData } from "@/hooks/FileTransfer";
-
 interface Props {
   steps: HTMLElement;
   RecipeName: string;
   StartSequenceId: string;
   StartStepId: string;
+  responseData: object;
 }
 
-//transferData({})
-export const handleGenerator = ({ steps, RecipeName, StartSequenceId, StartStepId }: Props) => {
+export const handleGenerator = ({ steps, RecipeName, StartSequenceId, StartStepId, responseData }: Props) => {
 
     let data: { [key: string]: string | number | object } = {}; 
     
@@ -30,6 +28,7 @@ export const handleGenerator = ({ steps, RecipeName, StartSequenceId, StartStepI
           stepData['StepType'] = (step.children[0].children[0].children[0].children[0] as HTMLInputElement).value;
           stepData['StepId'] = (step.children[0].children[0].children[1].children[0].children[1].children[0] as HTMLInputElement).checked || (step.children[0].children[0].children[1].children[0].children[0] as HTMLInputElement).value;
 
+          console.log(step.children[0].children[1].children[0].children, parseInt((step.children[0].children[1].children[0] as HTMLInputElement).value) + 1)
           if (step.children[0].children[1].children.length > 1) {
             stepData['ExecuteFunction'] = (step.children[0].children[1].children[0].children[parseInt((step.children[0].children[1].children[0] as HTMLInputElement).value) + 1] as HTMLInputElement).innerHTML + '/' + (step.children[0].children[1].children[1] as HTMLInputElement).value;
           }
@@ -60,10 +59,15 @@ export const handleGenerator = ({ steps, RecipeName, StartSequenceId, StartStepI
           stepData['Parameter'] = {};
           
           if (step.children[0].children[1].children.length > 1) {
-           // stepData['Parameter'] = data.(step.children[0].children[1].children[0].children[parseInt((step.children[0].children[1].children[0] as HTMLInputElement).value) + 1] as HTMLInputElement).innerHTML.Functions.(step.children[0].children[1].children[1] as HTMLInputElement).value.FunctionDescription;
+            const machineModule = (step.children[0].children[1].children[0].children[parseInt((step.children[0].children[1].children[0] as HTMLInputElement).value) + 1] as HTMLInputElement).innerHTML
+            const machineModule2 = (step.children[0].children[1].children[1] as HTMLInputElement).value
+            //console.log(machineModule, machineModule2)
+            stepData['Parameter'] = responseData.data[machineModule].Functions[machineModule2].FunctionDescription;
+            //data.(step.children[0].children[1].children[0].children[parseInt((step.children[0].children[1].children[0] as HTMLInputElement).value) + 1] as HTMLInputElement).innerHTML.Functions.(step.children[0].children[1].children[1] as HTMLInputElement).value.FunctionDescription;
           }
 
           data['step'].push(stepData);
+          stepData = {};
         }
       });
     }
