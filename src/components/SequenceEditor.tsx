@@ -1,34 +1,47 @@
-'use client'
-
+"use client"
 
 import MachineCard from "@/components/MachineCard";
 import { downloadFile } from "@/hooks/handleDownload";
 import { handleGenerator } from "@/hooks/handleGenerator";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { transferData } from "@/actions/file-transfer";
 
+export default function SequenceEditor() {
 
-export default function SequenceEditor(machineData: string | number) {
   const [components, setComponents] = useState<JSX.Element[]>([]);
+  const [machineData, setMachineData] = useState<object>({});
   const [generatedData, setGeneratedData] = useState<object>({});
-  let key = components.length;
+
+  useEffect(() => {
+    const fetchData = async () => {
+     const reponse = await transferData({ folder: 'Task', fileName: 'MachineCapabilities_Assessment.json' });
+     setMachineData(reponse)
+    }
+
+    fetchData()
+  }, []);
+
+  console.log(machineData)
 
   const addComponent = () => {
-    setComponents([...components, <MachineCard key={key} machineData={machineData} />]);
-    key++;
+    setComponents([...components, <MachineCard machineData={machineData} />]);
   };
   const handleChange = () => {
 
   };
 
- function generateData(): void {
+ const generateData = async () => {
     const genData = handleGenerator({ 
       steps: document.getElementById('steps')!,
       RecipeName: (document.getElementsByName("RecipeName")[0] as HTMLInputElement).value,
       StartSequenceId: (document.getElementsByName("StartSequenceId")[0] as HTMLInputElement).value,
       StartStepId: (document.getElementsByName("StartStepId")[0] as HTMLInputElement).value,
+      responseData: machineData
     });
   
-    console.log(genData)
+  
+    const responsed = await transferData({ data: genData})
+    console.log(responsed)
   }
 
   function downloadDate(): void {
@@ -76,3 +89,5 @@ export default function SequenceEditor(machineData: string | number) {
     </div>
   );
 }
+
+//export default React.memo(SequenceEditor);
