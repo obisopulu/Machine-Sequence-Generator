@@ -1,0 +1,45 @@
+{
+  "RecipeName": "",
+  "StartSequenceId": "",
+  "StartStepId": "",
+  "step": [
+    {
+      "StepType": "fdguisdfgj",
+      "StepId": "jkbsdkvndsb",
+      "ExecuteFunction": "GantryAxisX/GetPosition",
+      "Transitions": [
+        {
+          "hrFunction": "Succeeded",
+          "NextStepId": "sjdgjsdngj"
+        }
+      ],
+      "Parameter": {
+        "Name": "Get Axis Position",
+        "Description": "Gets the actual Position of the Axis",
+        "FunctionType": "Function Type",
+        "Category": "Category"
+      }
+    },
+    {
+      "StepType": "",
+      "StepId": "",
+      "ExecuteFunction": "VGU/Grip",
+      "Transitions": [
+        {
+          "hrFunction": "Succeeded",
+          "NextStepId": "gkjdfvkdf"
+        },
+        {
+          "hrFunction": "Succeeded",
+          "NextStepId": "dd"
+        }
+      ],
+      "Parameter": {
+        "Name": "Implementation error (FB_INIT -> SetFunctionDiscription)",
+        "Description": "Implementation error (FB_INIT -> SetFunctionDiscription)",
+        "FunctionType": "None",
+        "Category": "None"
+      }
+    }
+  ]
+}
