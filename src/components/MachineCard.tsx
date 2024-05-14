@@ -2,9 +2,10 @@
 
 import { SetStateAction, useState } from "react";
 
-export default function MachineCard(machineData: { [key: string]: string | number }, key: number) {
+export default function MachineCard(machineData: object) {
   const [exist, setExist] = useState<boolean>(true);
   const [machineindex, setMachineindex] = useState<number | null>();
+  const [selectValue, setSelectValue] = useState<number>(20);
   
   let machineDataState: string[] = [];
   let machineDataStateIndex: number[] = [];
@@ -29,6 +30,7 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
   
   const handleAddStep = (event: { target: { value: SetStateAction<number | null | undefined>; }; }) => {
     setMachineindex(event.target.value)
+    setSelectValue(event.target.value)
   };
   
   const handleChange = () => {
@@ -38,7 +40,7 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
   return (
       
     exist &&
-      <div key={key} className="p-4 rounded-sm border border-slate-600 mt-2">
+      <div key={Math.floor(Math.random() * 100)} className="p-4 rounded-sm border border-slate-600 mt-2">
         <div>
           <div className="flex flex-row ">
             StepType: 
@@ -61,8 +63,8 @@ export default function MachineCard(machineData: { [key: string]: string | numbe
           </div>*/}
         </div>
         <div className="flex justify-between">
-          <select className="p-4 bg-slate-600 w-1/2" onChange={handleAddStep}>
-            <option key={999} value={[]}>Machine-Module</option>
+          <select className="p-4 bg-slate-600 w-1/2" value={selectValue} onChange={handleAddStep}>
+            <option key={999} value={20}>Machine-Module</option>
             {
               Object.keys(machineDataObj).map((i, key) => 
                 <option key={key} value={key}>{i}</option>
